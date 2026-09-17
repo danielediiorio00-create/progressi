@@ -1,0 +1,58 @@
+.hero {
+  min-height: 200px;
+}
+
+.heroBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.heroRow {
+  display: flex;
+  gap: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.triple {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.chartLabel {
+  padding-top: var(--space-2);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+}
+
+.dotFilled,
+.dotHollow {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.dotFilled {
+  background: var(--accent);
+}
+
+.dotHollow {
+  margin-left: 8px;
+  border: 2px solid var(--accent);
+}

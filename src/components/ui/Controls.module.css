@@ -118,3 +118,40 @@
   background: var(--warning-tint);
   color: var(--warning);
 }
+
+/* ---- RatingPicker ---- */
+.rating {
+  display: flex;
+  gap: 4px;
+  justify-content: space-between;
+}
+
+.ratingBtn {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--btn-secondary-bg);
+  color: var(--text-muted);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.ratingBtn:active {
+  transform: scale(0.94);
+}
+
+.ratingBelow {
+  background: var(--accent-tint);
+  color: var(--text);
+}
+
+.ratingActive {
+  background: var(--accent-gradient);
+  color: var(--on-accent);
+  box-shadow: 0 8px 18px -8px rgba(255, 138, 0, 0.7);
+}

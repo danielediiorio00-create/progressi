@@ -81,3 +81,31 @@ interface ChipProps {
 export function Chip({ children, tone = 'neutral', className = '' }: ChipProps) {
   return <span className={`${styles.chip} ${styles[`chip_${tone}`]} ${className}`}>{children}</span>
 }
+
+/* ---------- RatingPicker: voto da 1 a 10 con un solo tocco ---------- */
+
+interface RatingPickerProps {
+  value?: number
+  onChange: (value: number) => void
+  max?: number
+  label: string
+}
+
+export function RatingPicker({ value, onChange, max = 10, label }: RatingPickerProps) {
+  return (
+    <div className={styles.rating} role="radiogroup" aria-label={label}>
+      {Array.from({ length: max }, (_, i) => i + 1).map((n) => (
+        <button
+          key={n}
+          type="button"
+          role="radio"
+          aria-checked={value === n}
+          className={`${styles.ratingBtn} ${value === n ? styles.ratingActive : ''} ${value !== undefined && n < value ? styles.ratingBelow : ''}`}
+          onClick={() => onChange(n)}
+        >
+          {n}
+        </button>
+      ))}
+    </div>
+  )
+}

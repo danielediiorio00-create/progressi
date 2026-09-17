@@ -14,7 +14,8 @@ import { Sun } from '../components/ui/Sun'
 import { Segmented } from '../components/ui/Controls'
 import { EmptyState } from '../components/ui/EmptyState'
 import { Button } from '../components/ui/Button'
-import { ChevronRightIcon, PlusIcon } from '../components/ui/Icons'
+import { PlusIcon } from '../components/ui/Icons'
+import { List, ListRow } from '../components/ui/ListRow'
 import { WeightChart } from '../components/body/WeightChart'
 import { WaistRatio } from '../components/body/WaistRatio'
 import { BodyForm } from '../components/body/BodyForm'
@@ -171,33 +172,22 @@ export function BodyPage() {
           {/* ---- Elenco ---- */}
           <Card variant="glass" compact>
             <div className="stack-sm">
-              <h2 className={styles.listTitle}>Misurazioni</h2>
-              <ul className={styles.list}>
+              <List title="Misurazioni">
                 {listed.map((e) => (
-                  <li key={e.id}>
-                    <button type="button" className={styles.rowBtn} onClick={() => openEdit(e)}>
-                      <div className={styles.rowMain}>
-                        <span className={styles.rowDate}>{formatRelativeDay(e.date)}</span>
-                        <span className={styles.rowMeta}>
-                          {CIRCUMFERENCES.filter((c) => e[c.key] !== undefined)
-                            .map((c) => `${c.label} ${fmtNum(e[c.key], 1)}`)
-                            .join(' · ') || (e.notes ? e.notes : 'Solo peso')}
-                        </span>
-                      </div>
-                      <span className={`${styles.rowValue} tnum`}>
-                        {e.weightKg !== undefined ? (
-                          <>
-                            {fmtNum(e.weightKg, 1)} <span className={styles.rowUnit}>kg</span>
-                          </>
-                        ) : (
-                          <span className={styles.rowUnit}>–</span>
-                        )}
-                      </span>
-                      <ChevronRightIcon size={18} className={styles.chevron} />
-                    </button>
-                  </li>
+                  <ListRow
+                    key={e.id}
+                    title={formatRelativeDay(e.date)}
+                    meta={
+                      CIRCUMFERENCES.filter((c) => e[c.key] !== undefined)
+                        .map((c) => `${c.label} ${fmtNum(e[c.key], 1)}`)
+                        .join(' · ') || (e.notes ? e.notes : 'Solo peso')
+                    }
+                    value={e.weightKg !== undefined ? fmtNum(e.weightKg, 1) : '–'}
+                    unit={e.weightKg !== undefined ? 'kg' : undefined}
+                    onClick={() => openEdit(e)}
+                  />
                 ))}
-              </ul>
+              </List>
               {recent.length > 8 && (
                 <Button variant="ghost" size="sm" onClick={() => setShowAll((v) => !v)}>
                   {showAll ? 'Mostra meno' : `Mostra tutte (${recent.length})`}
