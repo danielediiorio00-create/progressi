@@ -68,7 +68,7 @@ In **Palestra > Scheda** (icona appunti) si crea il programma da seguire, con
 uno o piu' giorni (es. Giorno A / Giorno B) e per ogni esercizio serie x
 ripetizioni, carico di riferimento e RIR. Si puo' incollare in Markdown (una
 riga per esercizio, tipo "- Leg press 3x12 60 kg RIR 2"; il parser sta in
-), modificare ogni riga, aggiornare i carichi con un tocco
+`src/lib/plan.ts`), modificare ogni riga, aggiornare i carichi con un tocco
 agli ultimi usati e copiarla in Markdown. Quando si registra una seduta si
 sceglie il giorno della scheda: esercizi e serie arrivano precompilati, con
 i carichi dell'ultima volta. La scheda entra anche nel report per il coach.
