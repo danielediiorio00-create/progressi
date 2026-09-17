@@ -66,8 +66,9 @@ scripts/generate-icons.mjs   genera le icone senza dipendenze esterne
 
 In **Palestra > Scheda** (icona appunti) si crea il programma da seguire, con
 uno o piu' giorni (es. Giorno A / Giorno B) e per ogni esercizio serie x
-ripetizioni, carico di riferimento e RIR. Si puo' incollare in Markdown (una
-riga per esercizio, tipo "- Leg press 3x12 60 kg RIR 2"; il parser sta in
+ripetizioni, carico di riferimento, RIR e recupero tra le serie (con timer
+nel modulo seduta). Si puo' incollare in Markdown (una
+riga per esercizio, tipo "- Leg press 3x12 60 kg RIR 2 rec 90 s"; il parser sta in
 `src/lib/plan.ts`), modificare ogni riga, aggiornare i carichi con un tocco
 agli ultimi usati e copiarla in Markdown. Quando si registra una seduta si
 sceglie il giorno della scheda: esercizi e serie arrivano precompilati, con

@@ -4,7 +4,8 @@ import type { Exercise, GymEntry, GymSession, Plan } from '../../db/types'
 import { formatRelativeDay, todayISO } from '../../lib/date'
 import { parseNum } from '../../lib/format'
 import { exerciseMap, formatEntry, lastEntryFor } from '../../lib/gym'
-import { entriesFromPlanDay, suggestNextDay } from '../../lib/plan'
+import { entriesFromPlanDay, formatPlanExercise, suggestNextDay } from '../../lib/plan'
+import { RestTimer } from './RestTimer'
 import { toast } from '../../hooks/useToast'
 import { Sheet } from '../ui/Sheet'
 import { Field, TextArea, TextInput } from '../ui/Field'
@@ -95,6 +96,13 @@ export function GymForm({ open, onClose, session, sessions, exercises, plan, ini
     setPlanDay(day.name)
   }
   const nextDay = plan ? suggestNextDay(plan, previous) : undefined
+
+  /** Voce della scheda per questo esercizio: prima nel giorno scelto, poi in qualunque giorno. */
+  const planExerciseFor = (exerciseId: number) => {
+    if (!plan) return undefined
+    const day = plan.days.find((d) => d.name === planDay)
+    return day?.exercises.find((e) => e.exerciseId === exerciseId) ?? plan.days.flatMap((d) => d.exercises).find((e) => e.exerciseId === exerciseId)
+  }
 
   const update = (key: number, patch: Partial<EntryDraft>) =>
     setEntries((list) => list.map((d) => (d.key === key ? { ...d, ...patch } : d)))
@@ -223,6 +231,16 @@ export function GymForm({ open, onClose, session, sessions, exercises, plan, ini
                   {last.entry.rir !== undefined && !time ? ` · RIR ${last.entry.rir}` : ''}
                 </p>
               )}
+              {(() => {
+                const pe = planExerciseFor(d.exerciseId)
+                if (!pe) return null
+                return (
+                  <div className={styles.planLine}>
+                    <span className={styles.entryHint}>Scheda: {formatPlanExercise(pe, ex, false)}</span>
+                    {pe.restSec ? <RestTimer seconds={pe.restSec} /> : null}
+                  </div>
+                )
+              })()}
             </div>
           )
         })}

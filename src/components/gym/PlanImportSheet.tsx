@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { db } from '../../db/db'
 import type { Exercise, Plan, PlanDay } from '../../db/types'
-import { matchExercise, parsePlanMarkdown } from '../../lib/plan'
+import { fmtRest, matchExercise, parsePlanMarkdown } from '../../lib/plan'
 import { toast } from '../../hooks/useToast'
 import { Sheet } from '../ui/Sheet'
 import { Field, TextArea, TextInput } from '../ui/Field'
@@ -21,13 +21,13 @@ interface PlanImportSheetProps {
 
 const EXAMPLE = `# La mia scheda
 ## Giorno A
-- Leg press 3x12 60 kg RIR 2
-- Chest press 3x10 30 kg
-- Plank 3x45 s
+- Leg press 3x12 60 kg RIR 2 rec 90 s
+- Chest press 3x10 30 kg rec 90 s
+- Plank 3x45 s rec 60 s
 ## Giorno B
-- Goblet squat 3x10 16 kg
-- Lat machine 3x12 35 kg RIR 2
-- Pulley basso 3x12 30 kg`
+- Goblet squat 3x10 16 kg rec 90 s
+- Lat machine 3x12 35 kg RIR 2 rec 90 s
+- Pulley basso 3x12 30 kg rec 60 s`
 
 /** Incolla una scheda in Markdown, controlla l'anteprima e importala. */
 export function PlanImportSheet({ open, onClose, exercises, current, onImported }: PlanImportSheetProps) {
@@ -71,7 +71,7 @@ export function PlanImportSheet({ open, onClose, exercises, current, onImported 
             created.set(key, id)
           }
         }
-        list.push({ exerciseId: id, sets: e.sets, reps: e.reps, weightKg: e.weightKg, rir: e.rir })
+        list.push({ exerciseId: id, sets: e.sets, reps: e.reps, weightKg: e.weightKg, rir: e.rir, restSec: e.restSec })
       }
       days.push({ name: d.name, exercises: list })
     }
@@ -88,7 +88,7 @@ export function PlanImportSheet({ open, onClose, exercises, current, onImported 
     <Sheet open={open} onClose={onClose} title="Importa scheda da Markdown">
       <div className="stack">
         <p className="muted small">
-          Incolla la scheda: un titolo per ogni giorno e una riga per esercizio, tipo «Leg press 3x12 60 kg RIR 2». Vanno bene
+          Incolla la scheda: un titolo per ogni giorno e una riga per esercizio, tipo «Leg press 3x12 60 kg RIR 2 rec 90 s». Vanno bene
           anche elenchi puntati e tabelle.{' '}
           <button type="button" className={styles.linkBtn} onClick={() => setText(EXAMPLE)}>
             Inserisci un esempio
@@ -116,6 +116,7 @@ export function PlanImportSheet({ open, onClose, exercises, current, onImported 
                         {e.time ? ' s' : ''}
                         {e.weightKg ? ` · ${e.weightKg} kg` : ''}
                         {e.rir !== undefined ? ` · RIR ${e.rir}` : ''}
+                        {e.restSec ? ` · rec ${fmtRest(e.restSec)}` : ''}
                       </span>
                       {!e.match && <Chip tone="accent">nuovo</Chip>}
                     </li>

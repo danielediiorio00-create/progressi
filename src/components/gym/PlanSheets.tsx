@@ -4,9 +4,9 @@ import type { Exercise, PlanExercise } from '../../db/types'
 import { parseNum } from '../../lib/format'
 import { toast } from '../../hooks/useToast'
 import { Sheet } from '../ui/Sheet'
-import { Field, TextInput } from '../ui/Field'
+import { Field, NumberInput, TextInput } from '../ui/Field'
 import { ActionPair, Button } from '../ui/Button'
-import { GymIcon, NoteIcon, TrashIcon } from '../ui/Icons'
+import { ClockIcon, GymIcon, NoteIcon, TrashIcon } from '../ui/Icons'
 import styles from './GymForm.module.css'
 
 /* ---------- Esercizio della scheda: aggiungi o modifica ---------- */
@@ -31,6 +31,7 @@ export function PlanExerciseSheet({ open, onClose, exercises, value, usedIds, on
   const [reps, setReps] = useState('10')
   const [weight, setWeight] = useState('')
   const [rir, setRir] = useState('')
+  const [rest, setRest] = useState('')
   const [note, setNote] = useState('')
   const [newName, setNewName] = useState('')
   const editing = value !== undefined
@@ -44,6 +45,7 @@ export function PlanExerciseSheet({ open, onClose, exercises, value, usedIds, on
     setReps(str(value?.reps ?? 10))
     setWeight(str(value?.weightKg))
     setRir(str(value?.rir))
+    setRest(str(value?.restSec))
     setNote(value?.note ?? '')
     setNewName('')
   }, [open, value])
@@ -66,11 +68,21 @@ export function PlanExerciseSheet({ open, onClose, exercises, value, usedIds, on
     const r = parseNum(reps)
     const w = parseNum(weight)
     const ri = parseNum(rir)
+    const re = parseNum(rest)
     if (s === undefined || s < 1 || s > 30) return toast('Serie da 1 a 30', 'error')
     if (r === undefined || r < 1 || r > 999) return toast(time ? 'Secondi da 1 a 999' : 'Ripetizioni da 1 a 999', 'error')
     if (weight.trim() && (w === undefined || w < 0 || w > 500)) return toast('Carico non valido', 'error')
     if (rir.trim() && (ri === undefined || ri < 0 || ri > 10)) return toast('RIR da 0 a 10', 'error')
-    onSave({ exerciseId, sets: Math.round(s), reps: Math.round(r), weightKg: w && w > 0 ? w : undefined, rir: time ? undefined : ri, note: note.trim() || undefined })
+    if (rest.trim() && (re === undefined || re < 5 || re > 1800)) return toast('Recupero da 5 a 1800 secondi', 'error')
+    onSave({
+      exerciseId,
+      sets: Math.round(s),
+      reps: Math.round(r),
+      weightKg: w && w > 0 ? w : undefined,
+      rir: time ? undefined : ri,
+      restSec: re ? Math.round(re) : undefined,
+      note: note.trim() || undefined,
+    })
     onClose()
   }
 
@@ -133,8 +145,12 @@ export function PlanExerciseSheet({ open, onClose, exercises, value, usedIds, on
           )}
         </div>
 
+        <Field label="Recupero tra le serie" icon={<ClockIcon size={18} />} suffix="s">
+          <NumberInput value={rest} onChange={(e) => setRest(e.target.value)} placeholder="90" decimal={false} />
+        </Field>
+
         <Field label="Nota" icon={<NoteIcon size={18} />}>
-          <TextInput value={note} onChange={(e) => setNote(e.target.value)} placeholder="Es. recupero 90 s, lento in discesa" />
+          <TextInput value={note} onChange={(e) => setNote(e.target.value)} placeholder="Es. lento in discesa, fermo 1 s in basso" />
         </Field>
 
         <ActionPair type="submit" label={editing ? 'Salva' : 'Aggiungi'} />

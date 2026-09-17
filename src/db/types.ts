@@ -97,6 +97,8 @@ export interface PlanExercise {
   reps: number
   weightKg?: number
   rir?: number
+  /** Recupero tra le serie, in secondi. */
+  restSec?: number
   note?: string
 }
 

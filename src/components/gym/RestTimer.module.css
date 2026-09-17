@@ -1,0 +1,31 @@
+.timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--btn-secondary-bg);
+  color: var(--text-muted);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.running {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+}
+
+.done {
+  background: var(--accent-gradient);
+  color: var(--on-accent);
+  animation: pulse 1s var(--ease) infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
