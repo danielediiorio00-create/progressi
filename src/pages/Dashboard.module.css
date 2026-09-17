@@ -1,12 +1,12 @@
 .hero {
-  min-height: 210px;
+  min-height: 230px;
 }
 
 .heroBody {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
 .heroNumbers {
@@ -14,13 +14,87 @@
   gap: var(--space-6);
 }
 
-.heroMetric :global(.tnum) {
-  color: var(--dark-card-text);
+.goal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* Barra sottile di avanzamento verso l'obiettivo. */
+.bar {
+  width: 92px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--accent-gradient);
+  transition: width 400ms var(--ease);
+}
+
+.heroFoot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .heroText {
   font-size: var(--fs-small);
   color: var(--dark-card-muted);
+  text-align: right;
+  max-width: 50%;
+}
+
+/* Scorciatoie di inserimento */
+.quick {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.quickBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 48px;
+  border-radius: var(--radius-pill);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  box-shadow: var(--shadow-button);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.quickBtn:active {
+  transform: scale(0.97);
+}
+
+/* Promemoria backup */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bannerBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
 }
 
 .link {

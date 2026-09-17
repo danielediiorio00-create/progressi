@@ -3,6 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db/db'
 import type { GymSession } from '../db/types'
 import { useSettings } from '../hooks/useSettings'
+import { useNewFromQuery } from '../hooks/useNewFromQuery'
 import { sortByDate } from '../lib/body'
 import { formatRelativeDay } from '../lib/date'
 import { fmtNum } from '../lib/format'
@@ -57,6 +58,7 @@ export function GymPage() {
     setEditing(undefined)
     setFormOpen(true)
   }
+  useNewFromQuery(openNew)
   const openEdit = (s: GymSession) => {
     setEditing(s)
     setFormOpen(true)

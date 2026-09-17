@@ -3,6 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db/db'
 import type { BodyEntry } from '../db/types'
 import { useSettings } from '../hooks/useSettings'
+import { useNewFromQuery } from '../hooks/useNewFromQuery'
 import { CIRCUMFERENCES, measureSummary, sortByDate, waistToHeight, weightPoints, weightSummary } from '../lib/body'
 import { addDays, formatRelativeDay, todayISO } from '../lib/date'
 import { fmtNum, fmtSigned } from '../lib/format'
@@ -48,6 +49,7 @@ export function BodyPage() {
     setEditing(undefined)
     setFormOpen(true)
   }
+  useNewFromQuery(openNew)
   const openEdit = (e: BodyEntry) => {
     setEditing(e)
     setFormOpen(true)
