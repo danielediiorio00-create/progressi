@@ -256,3 +256,30 @@ export const TreadmillIcon = (p: IconProps) => (
     <circle cx="18.5" cy="5.5" r="1.5" />
   </Icon>
 )
+
+export const ListIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M8.5 6.5h11M8.5 12h11M8.5 17.5h11" />
+    <path d="M4.5 6.5h.01M4.5 12h.01M4.5 17.5h.01" strokeWidth={2.6} />
+  </Icon>
+)
+
+export const ArrowUpIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 19V5M6 11l6-6 6 6" />
+  </Icon>
+)
+
+export const ArrowDownIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 5v14M6 13l6 6 6-6" />
+  </Icon>
+)
+
+export const ArchiveIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="3.5" y="4.5" width="17" height="4" rx="1" />
+    <path d="M5 8.5v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-10" />
+    <path d="M10 12.5h4" />
+  </Icon>
+)

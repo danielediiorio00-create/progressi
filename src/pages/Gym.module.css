@@ -1,0 +1,57 @@
+.hero {
+  min-height: 190px;
+}
+
+.heroBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.heroRow {
+  display: flex;
+  gap: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.triple {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+/* Riga di chip scorrevole in orizzontale (senza barra visibile). */
+.scroller {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  margin: 0 calc(-1 * var(--card-pad));
+  padding: 4px var(--card-pad);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.exChip {
+  flex: 0 0 auto;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  background: var(--btn-secondary-bg);
+  color: var(--text-muted);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.exChipActive {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  box-shadow: var(--shadow-button);
+}

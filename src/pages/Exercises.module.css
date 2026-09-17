@@ -1,0 +1,14 @@
+.arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--btn-secondary-bg);
+  color: var(--text);
+}
+
+.arrow:disabled {
+  opacity: 0.3;
+}

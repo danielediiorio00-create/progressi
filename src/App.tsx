@@ -6,6 +6,8 @@ import { PlaceholderPage } from './pages/Placeholder'
 import { BodyPage } from './pages/Body'
 import { RunningPage } from './pages/Running'
 import { HeartRatePage } from './pages/HeartRate'
+import { GymPage } from './pages/Gym'
+import { ExercisesPage } from './pages/Exercises'
 
 export default function App() {
   return (
@@ -15,10 +17,8 @@ export default function App() {
         <Route path="/corpo" element={<BodyPage />} />
         <Route path="/corsa" element={<RunningPage />} />
         <Route path="/corsa/frequenza-cardiaca" element={<HeartRatePage />} />
-        <Route
-          path="/palestra"
-          element={<PlaceholderPage title="Palestra" phase={4} text="Sessioni con esercizi, serie, ripetizioni, carico e RIR." />}
-        />
+        <Route path="/palestra" element={<GymPage />} />
+        <Route path="/palestra/esercizi" element={<ExercisesPage />} />
         <Route
           path="/report"
           element={<PlaceholderPage title="Report" phase={6} text="Riepilogo in Markdown da incollare nella chat con il coach." />}

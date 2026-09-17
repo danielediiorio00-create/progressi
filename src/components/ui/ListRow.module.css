@@ -10,12 +10,19 @@
   flex-direction: column;
 }
 
-.list li + li {
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.item + .item {
   border-top: 1px solid var(--divider);
 }
 
 .row {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -64,4 +71,11 @@ button.row:active {
 .chevron {
   color: var(--text-subtle);
   flex: 0 0 auto;
+}
+
+.actions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 4px;
+  padding-right: 4px;
 }

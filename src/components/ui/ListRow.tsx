@@ -19,12 +19,14 @@ interface ListRowProps {
   /** Valore grande a destra (es. "5,2"). */
   value?: ReactNode
   unit?: string
-  /** Contenuto extra a destra, prima della freccia (es. un chip). */
+  /** Contenuto extra NON interattivo a destra (es. un chip). */
   aside?: ReactNode
+  /** Pulsanti propri della riga (es. frecce): stanno fuori dall'area toccabile. */
+  actions?: ReactNode
   onClick?: () => void
 }
 
-export function ListRow({ title, meta, value, unit, aside, onClick }: ListRowProps) {
+export function ListRow({ title, meta, value, unit, aside, actions, onClick }: ListRowProps) {
   const body = (
     <>
       <div className={styles.main}>
@@ -38,11 +40,11 @@ export function ListRow({ title, meta, value, unit, aside, onClick }: ListRowPro
           {unit && <span className={styles.unit}> {unit}</span>}
         </span>
       )}
-      {onClick && <ChevronRightIcon size={18} className={styles.chevron} />}
+      {onClick && !actions && <ChevronRightIcon size={18} className={styles.chevron} />}
     </>
   )
   return (
-    <li>
+    <li className={styles.item}>
       {onClick ? (
         <button type="button" className={styles.row} onClick={onClick}>
           {body}
@@ -50,6 +52,7 @@ export function ListRow({ title, meta, value, unit, aside, onClick }: ListRowPro
       ) : (
         <div className={styles.row}>{body}</div>
       )}
+      {actions && <div className={styles.actions}>{actions}</div>}
     </li>
   )
 }
