@@ -69,7 +69,7 @@ giorni (profilo, peso medio settimanale e circonferenze, tabella corse, tabella
 palestra con confronto sul periodo precedente, aderenza settimanale, note
 libere). *Copia tutto* lo mette negli appunti; su iPhone, sul sito pubblicato,
 il bottone accanto apre il menu di condivisione. La frequenza cardiaca non e'
-inclusa. La logica sta in .
+inclusa. La logica sta in `src/lib/report.ts`.
 
 ## Privacy e backup
 
