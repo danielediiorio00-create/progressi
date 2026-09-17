@@ -52,6 +52,8 @@ src/
   lib/                  funzioni pure: date, formattazione, backup, calcoli
   hooks/                hook React (impostazioni, tema, toast)
   components/ui/        mattoncini riutilizzabili (Card, Button, Field, Metric, Sheet...)
+  components/charts/    impostazioni comuni dei grafici (assi, tooltip, scale)
+  components/body/      grafico peso, indicatore vita/altezza, modulo misurazioni
   components/layout/    struttura pagina e barra di navigazione
   pages/                una cartella-pagina per sezione
 scripts/generate-icons.mjs   genera le icone senza dipendenze esterne

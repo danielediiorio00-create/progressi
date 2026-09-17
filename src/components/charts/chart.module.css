@@ -1,0 +1,57 @@
+.box {
+  width: 100%;
+  margin-left: -6px; /* compensa il margine interno dell'asse Y */
+  width: calc(100% + 6px);
+}
+
+/* Recharts disegna il grafico dentro un <div class="recharts-wrapper"> */
+.box :global(.recharts-wrapper),
+.box :global(.recharts-responsive-container) {
+  font-family: inherit;
+}
+
+.box :global(.recharts-surface) {
+  overflow: visible;
+}
+
+.tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+  font-size: var(--fs-small);
+  color: var(--text);
+}
+
+.tooltipTitle {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tooltipLabel {
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}

@@ -20,7 +20,7 @@ export function Metric({ value, unit, label, size = 'lg', delta, deltaTone = 'ne
   return (
     <div className={`${styles.metric} ${styles[size]} ${align === 'center' ? styles.center : ''} ${className}`}>
       <span className={styles.label}>{label}</span>
-      <span className={`${styles.value} tnum`}>
+      <span className={styles.value}>
         {value}
         {unit && <span className={styles.unit}>{unit}</span>}
       </span>

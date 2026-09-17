@@ -3,16 +3,14 @@ import { AppShell } from './components/layout/AppShell'
 import { DashboardPage } from './pages/Dashboard'
 import { SettingsPage } from './pages/Settings'
 import { PlaceholderPage } from './pages/Placeholder'
+import { BodyPage } from './pages/Body'
 
 export default function App() {
   return (
     <AppShell>
       <Routes>
         <Route path="/" element={<DashboardPage />} />
-        <Route
-          path="/corpo"
-          element={<PlaceholderPage title="Corpo" phase={2} text="Peso, circonferenze, media mobile settimanale e rapporto vita/altezza." />}
-        />
+        <Route path="/corpo" element={<BodyPage />} />
         <Route
           path="/corsa"
           element={<PlaceholderPage title="Corsa" phase={3} text="Distanza, durata, passo e velocità calcolati, grafici nel tempo." />}

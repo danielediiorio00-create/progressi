@@ -1,0 +1,115 @@
+.hero {
+  min-height: 200px;
+}
+
+.heroBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.heroRow {
+  display: flex;
+  gap: var(--space-6);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+}
+
+.legendLine {
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--accent);
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: var(--chart-secondary);
+}
+
+.measures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4) var(--space-3);
+}
+
+/* ---- Elenco misurazioni ---- */
+.listTitle {
+  padding: 4px 8px 0;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.list li + li {
+  border-top: 1px solid var(--divider);
+}
+
+.rowBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px 8px;
+  text-align: left;
+  color: inherit;
+  border-radius: var(--radius-sm);
+  min-height: var(--touch);
+}
+
+.rowBtn:active {
+  background: var(--btn-secondary-bg);
+}
+
+.rowMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rowDate {
+  font-weight: var(--fw-medium);
+}
+
+.rowMeta {
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rowValue {
+  font-size: 22px;
+  font-weight: var(--fw-light);
+  white-space: nowrap;
+}
+
+.rowUnit {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+.chevron {
+  color: var(--text-subtle);
+  flex: 0 0 auto;
+}
