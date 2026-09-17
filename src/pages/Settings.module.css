@@ -1,0 +1,28 @@
+.divider {
+  height: 1px;
+  background: var(--divider);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.onDark {
+  color: var(--dark-card-muted);
+  font-size: var(--fs-small);
+}
+
+.secondaryOnDark {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.footer {
+  text-align: center;
+  font-size: var(--fs-label);
+  color: var(--text-subtle);
+  padding: var(--space-3) 0;
+}

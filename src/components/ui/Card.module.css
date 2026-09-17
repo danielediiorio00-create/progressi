@@ -1,0 +1,35 @@
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  padding: var(--card-pad);
+}
+
+.compact {
+  padding: var(--space-4);
+}
+
+.solid {
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
+.dark {
+  background: var(--dark-card-bg);
+  color: var(--dark-card-text);
+  border: 1px solid var(--dark-card-border);
+  box-shadow: var(--shadow-dark-card);
+}
+
+.dark :global(.label),
+.dark :global(.muted) {
+  color: var(--dark-card-muted);
+}

@@ -1,0 +1,11 @@
+.sun {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  pointer-events: none;
+}
+
+.glow {
+  box-shadow: var(--accent-glow);
+}

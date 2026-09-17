@@ -1,0 +1,47 @@
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+}
+
+.label {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.value {
+  font-weight: var(--fw-light);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.hero .value { font-size: var(--fs-hero); }
+.lg .value { font-size: var(--fs-metric); }
+.sm .value { font-size: var(--fs-metric-sm); }
+
+.unit {
+  font-size: 0.4em;
+  font-weight: var(--fw-regular);
+  color: var(--text-muted);
+  letter-spacing: 0;
+}
+
+.delta {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+.good { color: var(--success); }
+.bad { color: var(--danger); }

@@ -1,0 +1,34 @@
+.hero {
+  min-height: 210px;
+}
+
+.heroBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.heroNumbers {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.heroMetric :global(.tnum) {
+  color: var(--dark-card-text);
+}
+
+.heroText {
+  font-size: var(--fs-small);
+  color: var(--dark-card-muted);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-2);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  color: var(--text);
+}

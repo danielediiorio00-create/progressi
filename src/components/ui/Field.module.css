@@ -1,0 +1,113 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 60px;
+  padding: 8px 14px 8px 8px;
+  border-radius: var(--radius-md);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  cursor: text;
+}
+
+.field:focus-within {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px var(--accent-tint);
+}
+
+.hasError {
+  border-color: var(--danger);
+}
+
+.icon {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--input-icon-bg);
+  color: var(--text-muted);
+  box-shadow: 0 6px 14px -8px rgba(0, 0, 0, 0.25);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.label {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+.input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  outline: none;
+  /* 17px evita lo zoom automatico di Safari iOS sui campi < 16px */
+  font-size: 17px;
+  font-weight: var(--fw-regular);
+  line-height: 1.3;
+  color: var(--text);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.input[type='date'] {
+  min-height: 24px;
+}
+
+.textarea {
+  resize: none;
+  line-height: 1.4;
+  padding-top: 2px;
+}
+
+select.input {
+  padding-right: 18px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+    linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 9px) 55%,
+    calc(100% - 4px) 55%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.suffix {
+  flex: 0 0 auto;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+.error {
+  margin: 0 0 0 var(--space-2);
+  font-size: var(--fs-small);
+  color: var(--danger);
+}
+
+.hint {
+  margin: 0 0 0 var(--space-2);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}

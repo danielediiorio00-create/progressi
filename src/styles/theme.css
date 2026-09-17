@@ -1,0 +1,148 @@
+/* =====================================================================
+   TEMA — unico punto di definizione di colori, raggi, ombre, spaziature
+   e tipografia. Tutti i componenti usano SOLO queste variabili.
+   Il tema scuro si attiva con <html data-theme="dark"> (gestito da
+   useTheme + lo script in index.html).
+   ===================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* --- Tipografia ---------------------------------------------------- */
+  --font-sans: 'Outfit Variable', 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-hero: 64px;      /* numero in evidenza nella dashboard */
+  --fs-metric: 44px;    /* numeri delle metriche */
+  --fs-metric-sm: 28px;
+  --fs-title: 30px;     /* titoli pagina */
+  --fs-h2: 19px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-label: 12px;     /* etichette piccole in grigio caldo */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --lh-tight: 1.05;
+  --tracking-label: 0.08em;
+
+  /* --- Sfondo e superfici ---------------------------------------------- */
+  --bg-start: #EFE7DF;
+  --bg-end: #E2D6C7;
+  --surface: #FFFFFF;
+  --surface-2: #F6F0E9;
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-blur: 20px;
+  --dark-card-bg: #1A1A1A;
+  --dark-card-border: transparent;
+  --dark-card-text: #FFFFFF;
+  --dark-card-muted: rgba(255, 255, 255, 0.55);
+
+  /* --- Testo ------------------------------------------------------------ */
+  --text: #1C1917;
+  --text-muted: #8A7F75;
+  --text-subtle: #B5A99C;
+  --on-accent: #1A1A1A;
+
+  /* --- Accento (sole) --------------------------------------------------- */
+  --accent: #FF8A00;
+  --accent-soft: #FFC27A;
+  --accent-gradient: radial-gradient(circle at 35% 35%, #FFC27A 0%, #FF9E2E 45%, #FF8A00 75%, #F27F00 100%);
+  --accent-glow: 0 18px 50px -12px rgba(255, 138, 0, 0.55);
+  --accent-tint: rgba(255, 138, 0, 0.12);
+
+  /* --- Stati ------------------------------------------------------------ */
+  --success: #3E9F6A;
+  --success-tint: rgba(62, 159, 106, 0.14);
+  --danger: #D8503F;
+  --danger-tint: rgba(216, 80, 63, 0.12);
+  --warning: #E0A100;
+  --warning-tint: rgba(224, 161, 0, 0.14);
+
+  /* --- Pulsanti e campi -------------------------------------------------- */
+  --btn-bg: #1A1A1A;
+  --btn-text: #FFFFFF;
+  --btn-secondary-bg: rgba(28, 25, 23, 0.06);
+  --input-bg: rgba(255, 255, 255, 0.55);
+  --input-border: rgba(255, 255, 255, 0.85);
+  --input-focus: rgba(255, 138, 0, 0.55);
+  --input-icon-bg: #FFFFFF;
+  --divider: rgba(28, 25, 23, 0.08);
+  --chart-grid: rgba(28, 25, 23, 0.07);
+  --chart-secondary: #B5A99C;
+
+  /* --- Raggi ------------------------------------------------------------- */
+  --radius-card: 28px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+
+  /* --- Ombre: sempre morbide e diffuse, mai nette ------------------------- */
+  --shadow-card: 0 22px 48px -24px rgba(74, 52, 30, 0.30), 0 6px 18px -10px rgba(74, 52, 30, 0.12);
+  --shadow-glass: 0 18px 44px -22px rgba(74, 52, 30, 0.28);
+  --shadow-float: 0 24px 56px -20px rgba(30, 20, 10, 0.38);
+  --shadow-dark-card: 0 28px 56px -22px rgba(0, 0, 0, 0.55);
+  --shadow-button: 0 12px 28px -12px rgba(26, 26, 26, 0.55);
+
+  /* --- Spaziature ---------------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --page-x: 20px;
+  --page-max: 540px;
+  --card-pad: 22px;
+  --nav-h: 68px;
+  --touch: 44px; /* dimensione minima consigliata per i tocchi su iPhone */
+
+  /* --- Movimento ------------------------------------------------------------ */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur: 220ms;
+}
+
+/* ---------------------------------------------------------------------
+   TEMA SCURO: base #1C1917, card #292420, stesso accento arancione.
+   --------------------------------------------------------------------- */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg-start: #1C1917;
+  --bg-end: #131110;
+  --surface: #292420;
+  --surface-2: #332D28;
+  --glass-bg: rgba(41, 36, 32, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --dark-card-bg: #0F0E0D;
+  --dark-card-border: rgba(255, 255, 255, 0.08);
+  --dark-card-text: #FFFFFF;
+  --dark-card-muted: rgba(255, 255, 255, 0.5);
+
+  --text: #F3EDE6;
+  --text-muted: #A69B90;
+  --text-subtle: #6E655D;
+
+  --accent-glow: 0 18px 50px -12px rgba(255, 138, 0, 0.45);
+  --accent-tint: rgba(255, 138, 0, 0.16);
+  --success-tint: rgba(62, 159, 106, 0.2);
+  --danger-tint: rgba(216, 80, 63, 0.2);
+  --warning-tint: rgba(224, 161, 0, 0.2);
+
+  --btn-bg: #F3EDE6;
+  --btn-text: #1A1A1A;
+  --btn-secondary-bg: rgba(255, 255, 255, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.06);
+  --input-border: rgba(255, 255, 255, 0.08);
+  --input-icon-bg: #332D28;
+  --divider: rgba(255, 255, 255, 0.08);
+  --chart-grid: rgba(255, 255, 255, 0.07);
+  --chart-secondary: #6E655D;
+
+  --shadow-card: 0 22px 48px -24px rgba(0, 0, 0, 0.7), 0 6px 18px -10px rgba(0, 0, 0, 0.4);
+  --shadow-glass: 0 18px 44px -22px rgba(0, 0, 0, 0.6);
+  --shadow-float: 0 24px 56px -20px rgba(0, 0, 0, 0.75);
+  --shadow-dark-card: 0 28px 56px -22px rgba(0, 0, 0, 0.8);
+  --shadow-button: 0 12px 28px -12px rgba(0, 0, 0, 0.6);
+}

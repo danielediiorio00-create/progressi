@@ -1,0 +1,11 @@
+.shell {
+  min-height: 100dvh;
+}
+
+.page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + var(--space-3)) var(--page-x)
+    calc(var(--nav-h) + env(safe-area-inset-bottom) + var(--space-7));
+}
