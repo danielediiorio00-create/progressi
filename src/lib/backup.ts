@@ -7,14 +7,15 @@ export const BACKUP_REMINDER_DAYS = 14
 
 /** Raccoglie tutte le tabelle in un unico oggetto JSON. */
 export async function buildBackup(): Promise<BackupFile> {
-  const [settings, body, runs, exercises, gym] = await Promise.all([
+  const [settings, body, runs, exercises, gym, plans] = await Promise.all([
     db.settings.toArray(),
     db.body.toArray(),
     db.runs.toArray(),
     db.exercises.toArray(),
     db.gym.toArray(),
+    db.plans.toArray(),
   ])
-  return { app: 'progressi', version: 1, exportedAt: new Date().toISOString(), settings, body, runs, exercises, gym }
+  return { app: 'progressi', version: 1, exportedAt: new Date().toISOString(), settings, body, runs, exercises, gym, plans }
 }
 
 /**
@@ -81,14 +82,15 @@ export async function importBackup(file: File): Promise<{ body: number; runs: nu
   if (!isBackupFile(parsed)) throw new Error('Il file non è un backup di Progressi.')
   const data = parsed
 
-  await db.transaction('rw', [db.settings, db.body, db.runs, db.exercises, db.gym], async () => {
-    await Promise.all([db.settings.clear(), db.body.clear(), db.runs.clear(), db.exercises.clear(), db.gym.clear()])
+  await db.transaction('rw', [db.settings, db.body, db.runs, db.exercises, db.gym, db.plans], async () => {
+    await Promise.all([db.settings.clear(), db.body.clear(), db.runs.clear(), db.exercises.clear(), db.gym.clear(), db.plans.clear()])
     const settings: Settings = { ...defaultSettings(), ...(data.settings?.[0] ?? {}), id: SETTINGS_ID }
     await db.settings.put(settings)
     await db.body.bulkAdd(data.body)
     await db.runs.bulkAdd(data.runs)
     await db.exercises.bulkAdd(data.exercises)
     await db.gym.bulkAdd(data.gym)
+    if (data.plans) await db.plans.bulkAdd(data.plans)
   })
 
   return { body: data.body.length, runs: data.runs.length, gym: data.gym.length, exercises: data.exercises.length }

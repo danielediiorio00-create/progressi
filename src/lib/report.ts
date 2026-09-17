@@ -1,9 +1,10 @@
-import type { BodyEntry, Exercise, GymSession, ISODate, Run, Settings } from '../db/types'
+import type { BodyEntry, Exercise, GymSession, ISODate, Plan, Run, Settings } from '../db/types'
 import { addDays, endOfWeek, formatDate, parseISO, startOfWeek, todayISO } from './date'
 import { fmtDuration, fmtNum, fmtPace, fmtSigned } from './format'
 import { CIRCUMFERENCES, sortByDate } from './body'
 import { paceSecPerKm, runTypeLabel } from './running'
-import { formatEntry } from './gym'
+import { exerciseMap, formatEntry } from './gym'
+import { formatPlanExercise } from './plan'
 import { goalStreak, weekProgress } from './dashboard'
 
 export type ReportDays = 7 | 30 | 90
@@ -16,6 +17,8 @@ export interface ReportInput {
   exercises: Exercise[]
   days: ReportDays
   notes: string
+  /** Scheda attuale, se esiste. */
+  plan?: Plan
   today?: ISODate
 }
 
@@ -154,6 +157,17 @@ export function buildReport(input: ReportInput): string {
     for (const s of noted) out.push(`- ${formatDate(s.date, 'short')}: ${s.notes}`)
   }
   out.push('')
+
+  // ---- Scheda attuale ------------------------------------------------------
+  if (input.plan && input.plan.days.some((d) => d.exercises.length > 0)) {
+    const byId = exerciseMap(exercises)
+    out.push(`## Scheda attuale (${input.plan.name})`)
+    for (const day of input.plan.days) {
+      if (day.exercises.length === 0) continue
+      out.push(`- **${day.name}**: ${day.exercises.map((pe) => formatPlanExercise(pe, byId.get(pe.exerciseId))).join('; ')}`)
+    }
+    out.push('')
+  }
 
   // ---- Aderenza ------------------------------------------------------------
   out.push(`## Aderenza (obiettivo ${settings.weeklyRunTarget} corse + ${settings.weeklyGymTarget} palestra a settimana)`)

@@ -72,6 +72,8 @@ export interface GymSession {
   date: ISODate
   entries: GymEntry[]
   notes?: string
+  /** Giorno della scheda seguito in questa seduta (es. "Giorno A"). */
+  planDay?: string
 }
 
 /** Struttura del file di backup JSON. */
@@ -84,4 +86,30 @@ export interface BackupFile {
   runs: Run[]
   exercises: Exercise[]
   gym: GymSession[]
+  /** Assente nei backup precedenti alla scheda. */
+  plans?: Plan[]
+}
+
+/** Un esercizio dentro un giorno della scheda: serie x ripetizioni (o secondi) e carico di riferimento. */
+export interface PlanExercise {
+  exerciseId: number
+  sets: number
+  reps: number
+  weightKg?: number
+  rir?: number
+  note?: string
+}
+
+export interface PlanDay {
+  name: string
+  exercises: PlanExercise[]
+}
+
+/** Scheda di allenamento: uno o piu' giorni da seguire a rotazione. */
+export interface Plan {
+  id?: number
+  name: string
+  days: PlanDay[]
+  createdAt: string
+  updatedAt: string
 }

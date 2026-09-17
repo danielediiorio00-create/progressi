@@ -49,6 +49,7 @@ export function ReportPage() {
   const runs = useLiveQuery(() => db.runs.toArray(), [])
   const gym = useLiveQuery(() => db.gym.toArray(), [])
   const exercises = useLiveQuery(() => db.exercises.toArray(), [])
+  const plans = useLiveQuery(() => db.plans.toArray(), [])
   const [days, setDays] = useState<ReportDays>(() => (Number(readStored(DAYS_KEY, '30')) as ReportDays) || 30)
   const [notes, setNotes] = useState(() => readStored(NOTES_KEY, ''))
   const hiddenRef = useRef<HTMLTextAreaElement>(null)
@@ -64,10 +65,11 @@ export function ReportPage() {
     }
   }, [notes, days])
 
-  const loaded = settings && body && runs && gym && exercises
+  const loaded = settings && body && runs && gym && exercises && plans
+  const plan = plans && plans.length ? plans[plans.length - 1] : undefined
   const text = useMemo(
-    () => (loaded ? buildReport({ settings, body, runs, gym, exercises, days, notes }) : ''),
-    [loaded, settings, body, runs, gym, exercises, days, notes],
+    () => (loaded ? buildReport({ settings, body, runs, gym, exercises, days, notes, plan }) : ''),
+    [loaded, settings, body, runs, gym, exercises, days, notes, plan],
   )
 
   const onCopy = async () => {

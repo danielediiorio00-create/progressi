@@ -283,3 +283,11 @@ export const ArchiveIcon = (p: IconProps) => (
     <path d="M10 12.5h4" />
   </Icon>
 )
+
+export const ClipboardIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="5.5" y="5" width="13" height="15.5" rx="2" />
+    <path d="M9 5V3.5h6V5" />
+    <path d="M9 10.5h6M9 14h6M9 17.5h3.5" />
+  </Icon>
+)

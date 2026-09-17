@@ -55,3 +55,38 @@
   color: var(--btn-text);
   box-shadow: var(--shadow-button);
 }
+
+.planRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.planNext {
+  margin-top: 4px;
+  font-weight: var(--fw-medium);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.linkBtn {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  box-shadow: var(--shadow-button);
+}

@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie'
-import type { BodyEntry, Exercise, GymSession, Run, Settings } from './types'
+import type { BodyEntry, Exercise, GymSession, Plan, Run, Settings } from './types'
 import { DEFAULT_EXERCISES } from './seed'
 
 export const SETTINGS_ID = 1
@@ -17,6 +17,7 @@ export const db = new Dexie('progressi') as Dexie & {
   runs: EntityTable<Run, 'id'>
   exercises: EntityTable<Exercise, 'id'>
   gym: EntityTable<GymSession, 'id'>
+  plans: EntityTable<Plan, 'id'>
 }
 
 db.version(1).stores({
@@ -25,6 +26,11 @@ db.version(1).stores({
   runs: '++id, date',
   exercises: '++id, sortOrder',
   gym: '++id, date',
+})
+
+// Versione 2: scheda di allenamento. Dexie aggiorna i database esistenti da solo.
+db.version(2).stores({
+  plans: '++id',
 })
 
 export function defaultSettings(): Settings {

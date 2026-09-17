@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { db } from '../../db/db'
-import type { Exercise, GymEntry, GymSession } from '../../db/types'
+import type { Exercise, GymEntry, GymSession, Plan } from '../../db/types'
 import { formatRelativeDay, todayISO } from '../../lib/date'
 import { parseNum } from '../../lib/format'
 import { exerciseMap, formatEntry, lastEntryFor } from '../../lib/gym'
+import { entriesFromPlanDay, suggestNextDay } from '../../lib/plan'
 import { toast } from '../../hooks/useToast'
 import { Sheet } from '../ui/Sheet'
 import { Field, TextArea, TextInput } from '../ui/Field'
@@ -18,6 +19,10 @@ interface GymFormProps {
   session?: GymSession
   sessions: GymSession[]
   exercises: Exercise[]
+  /** Scheda attuale: permette di partire da un giorno gia' compilato. */
+  plan?: Plan
+  /** Giorno della scheda da caricare subito all'apertura (scorciatoia). */
+  initialDay?: string
 }
 
 interface EntryDraft {
@@ -37,10 +42,11 @@ function draftFrom(exerciseId: number, e?: GymEntry): EntryDraft {
 }
 
 /** Modulo della seduta: esercizi con serie x ripetizioni x carico e RIR. */
-export function GymForm({ open, onClose, session, sessions, exercises }: GymFormProps) {
+export function GymForm({ open, onClose, session, sessions, exercises, plan, initialDay }: GymFormProps) {
   const [date, setDate] = useState(todayISO())
   const [entries, setEntries] = useState<EntryDraft[]>([])
   const [notes, setNotes] = useState('')
+  const [planDay, setPlanDay] = useState<string | undefined>()
   const [newName, setNewName] = useState('')
   const [adding, setAdding] = useState(false)
   const editing = session?.id !== undefined
@@ -53,10 +59,18 @@ export function GymForm({ open, onClose, session, sessions, exercises }: GymForm
   useEffect(() => {
     if (!open) return
     setDate(session?.date ?? todayISO())
-    setEntries(session ? session.entries.map((e) => draftFrom(e.exerciseId, e)) : [])
     setNotes(session?.notes ?? '')
     setNewName('')
     setAdding(false)
+    setPlanDay(session?.planDay)
+    const day = !session && initialDay ? plan?.days.find((d) => d.name === initialDay) : undefined
+    if (day) {
+      setEntries(entriesFromPlanDay(day, sessions.filter((s) => s.id !== session?.id)).map((e) => draftFrom(e.exerciseId, e)))
+      setPlanDay(day.name)
+    } else {
+      setEntries(session ? session.entries.map((e) => draftFrom(e.exerciseId, e)) : [])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, session])
 
   const available = exercises.filter((ex) => !ex.archived && !entries.some((d) => d.exerciseId === ex.id))
@@ -70,7 +84,17 @@ export function GymForm({ open, onClose, session, sessions, exercises }: GymForm
   const repeatLast = () => {
     if (!lastSession) return
     setEntries(lastSession.entries.map((e) => draftFrom(e.exerciseId, e)))
+    setPlanDay(lastSession.planDay)
   }
+
+  /** Carica un giorno della scheda: serie/ripetizioni dalla scheda, carichi dall'ultima volta. */
+  const loadPlanDay = (name: string) => {
+    const day = plan?.days.find((d) => d.name === name)
+    if (!day) return
+    setEntries(entriesFromPlanDay(day, previous).map((e) => draftFrom(e.exerciseId, e)))
+    setPlanDay(day.name)
+  }
+  const nextDay = plan ? suggestNextDay(plan, previous) : undefined
 
   const update = (key: number, patch: Partial<EntryDraft>) =>
     setEntries((list) => list.map((d) => (d.key === key ? { ...d, ...patch } : d)))
@@ -113,7 +137,7 @@ export function GymForm({ open, onClose, session, sessions, exercises }: GymForm
       })
     }
 
-    const record: GymSession = { date, entries: parsed, notes: notes.trim() || undefined }
+    const record: GymSession = { date, entries: parsed, notes: notes.trim() || undefined, planDay }
     if (editing) {
       await db.gym.put({ ...record, id: session!.id })
       toast('Seduta aggiornata', 'success')
@@ -139,11 +163,27 @@ export function GymForm({ open, onClose, session, sessions, exercises }: GymForm
           <TextInput type="date" value={date} onChange={(e) => setDate(e.target.value)} max={todayISO()} required />
         </Field>
 
+        {entries.length === 0 && plan && plan.days.some((d) => d.exercises.length > 0) && (
+          <div className="stack-sm">
+            <span className="label">Dalla scheda «{plan.name}»</span>
+            <div className={styles.chips}>
+              {plan.days
+                .filter((d) => d.exercises.length > 0)
+                .map((d) => (
+                  <button key={d.name} type="button" className={`${styles.chip} ${d.name === nextDay?.name ? styles.chipAccent : ''}`} onClick={() => loadPlanDay(d.name)}>
+                    {d.name}
+                    {d.name === nextDay?.name ? ' · prossimo' : ''}
+                  </button>
+                ))}
+            </div>
+          </div>
+        )}
         {entries.length === 0 && lastSession && (
           <Button variant="secondary" icon={<RepeatIcon size={18} />} onClick={repeatLast} full>
             Ripeti l'ultima seduta ({formatRelativeDay(lastSession.date).toLowerCase()})
           </Button>
         )}
+        {entries.length > 0 && planDay && <p className={styles.entryHint}>Scheda: {planDay}</p>}
 
         {entries.map((d) => {
           const ex = byId.get(d.exerciseId)

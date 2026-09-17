@@ -55,12 +55,23 @@ src/
   components/charts/    impostazioni comuni dei grafici (assi, tooltip, scale)
   components/body/      grafico peso, indicatore vita/altezza, modulo misurazioni
   components/running/   grafici distanza/passo/FC e modulo corsa
-  components/gym/       modulo seduta (esercizi precompilati) e grafico progressione
+  components/gym/       modulo seduta, grafico progressione, scheda (import Markdown, modifica)
   components/layout/    struttura pagina e barra di navigazione
   pages/                una cartella-pagina per sezione
 scripts/generate-icons.mjs   genera le icone senza dipendenze esterne
 .github/workflows/deploy.yml pubblicazione automatica su GitHub Pages
 ```
+
+## Scheda di allenamento
+
+In **Palestra > Scheda** (icona appunti) si crea il programma da seguire, con
+uno o piu' giorni (es. Giorno A / Giorno B) e per ogni esercizio serie x
+ripetizioni, carico di riferimento e RIR. Si puo' incollare in Markdown (una
+riga per esercizio, tipo "- Leg press 3x12 60 kg RIR 2"; il parser sta in
+), modificare ogni riga, aggiornare i carichi con un tocco
+agli ultimi usati e copiarla in Markdown. Quando si registra una seduta si
+sceglie il giorno della scheda: esercizi e serie arrivano precompilati, con
+i carichi dell'ultima volta. La scheda entra anche nel report per il coach.
 
 ## Report per il coach
 
@@ -109,4 +120,5 @@ repository durante la build in GitHub Actions: non c'e' nulla da configurare.
 4. Palestra
 5. Dashboard
 6. Report per il coach
+6b. Scheda di allenamento (Markdown in/out, carichi modificabili)
 7. Rifinitura del design e deploy

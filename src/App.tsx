@@ -7,6 +7,7 @@ import { RunningPage } from './pages/Running'
 import { HeartRatePage } from './pages/HeartRate'
 import { GymPage } from './pages/Gym'
 import { ExercisesPage } from './pages/Exercises'
+import { PlanPage } from './pages/Plan'
 import { ReportPage } from './pages/Report'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/corsa/frequenza-cardiaca" element={<HeartRatePage />} />
         <Route path="/palestra" element={<GymPage />} />
         <Route path="/palestra/esercizi" element={<ExercisesPage />} />
+        <Route path="/palestra/scheda" element={<PlanPage />} />
         <Route path="/report" element={<ReportPage />} />
         <Route path="/impostazioni" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -126,3 +126,14 @@
   font-size: 17px;
   color: var(--text);
 }
+
+.chipActive {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  box-shadow: var(--shadow-button);
+}
+
+.chipAccent {
+  background: var(--accent-gradient);
+  color: var(--on-accent);
+}

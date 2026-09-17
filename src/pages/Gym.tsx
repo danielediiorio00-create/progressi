@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../db/db'
 import type { GymSession } from '../db/types'
@@ -16,7 +17,8 @@ import { Sun } from '../components/ui/Sun'
 import { Chip } from '../components/ui/Controls'
 import { EmptyState } from '../components/ui/EmptyState'
 import { List, ListRow } from '../components/ui/ListRow'
-import { ListIcon, PlusIcon } from '../components/ui/Icons'
+import { ArrowRightIcon, ClipboardIcon, ListIcon, PlusIcon } from '../components/ui/Icons'
+import { suggestNextDay } from '../lib/plan'
 import { GymForm } from '../components/gym/GymForm'
 import { LoadChart } from '../components/gym/LoadChart'
 import styles from './Gym.module.css'
@@ -25,6 +27,9 @@ export function GymPage() {
   const settings = useSettings()
   const sessions = useLiveQuery(() => db.gym.toArray(), [])
   const exercises = useLiveQuery(() => db.exercises.orderBy('sortOrder').toArray(), [])
+  const plans = useLiveQuery(() => db.plans.toArray(), [])
+  const plan = plans && plans.length ? plans[plans.length - 1] : undefined
+  const [initialDay, setInitialDay] = useState<string | undefined>()
   const [formOpen, setFormOpen] = useState(false)
   const [editing, setEditing] = useState<GymSession | undefined>()
   const [selected, setSelected] = useState<number | undefined>()
@@ -54,13 +59,16 @@ export function GymPage() {
   const best = points.length ? Math.max(...points.map((p) => p.value)) : undefined
   const unit = selectedEx?.mode === 'time' ? 's' : 'kg'
 
-  const openNew = () => {
+  const openNew = (day?: string) => {
     setEditing(undefined)
+    setInitialDay(day)
     setFormOpen(true)
   }
-  useNewFromQuery(openNew)
+  useNewFromQuery((params) => openNew(params.get('giorno') ?? undefined))
+  const nextDay = plan && sessions ? suggestNextDay(plan, sessions) : undefined
   const openEdit = (s: GymSession) => {
     setEditing(s)
+    setInitialDay(undefined)
     setFormOpen(true)
   }
 
@@ -74,10 +82,13 @@ export function GymPage() {
         eyebrow={last ? `Ultima seduta: ${formatRelativeDay(last.date).toLowerCase()}` : 'Serie, ripetizioni e carichi'}
         actions={
           <>
+            <HeaderButton to="/palestra/scheda" label="Scheda">
+              <ClipboardIcon size={20} />
+            </HeaderButton>
             <HeaderButton to="/palestra/esercizi" label="Esercizi">
               <ListIcon size={20} />
             </HeaderButton>
-            <IconButton variant="accent" label="Nuova seduta" onClick={openNew}>
+            <IconButton variant="accent" label="Nuova seduta" onClick={() => openNew()}>
               <PlusIcon />
             </IconButton>
           </>
@@ -90,9 +101,14 @@ export function GymPage() {
             title="Nessuna seduta"
             text="Aggiungi gli esercizi fatti con serie, ripetizioni, carico e RIR (le ripetizioni che ti restavano). La volta dopo trovi già i carichi precompilati."
             action={
-              <Button icon={<PlusIcon size={18} />} onClick={openNew}>
-                Prima seduta
-              </Button>
+              <div className="stack-sm">
+                <Button icon={<PlusIcon size={18} />} onClick={() => openNew()}>
+                  Prima seduta
+                </Button>
+                <Link to="/palestra/scheda" className={styles.link}>
+                  Oppure crea prima la scheda <ArrowRightIcon size={16} />
+                </Link>
+              </div>
             }
           />
         </Card>
@@ -109,6 +125,36 @@ export function GymPage() {
                 <Metric label="Totale" value={sorted.length} unit={sorted.length === 1 ? 'seduta' : 'sedute'} size="sm" />
               </div>
             </div>
+          </Card>
+
+          {/* ---- Scheda ---- */}
+          <Card variant="glass">
+            {plan ? (
+              <div className={styles.planRow}>
+                <div className="grow">
+                  <span className="label">Scheda · {plan.name}</span>
+                  <p className={styles.planNext}>{nextDay ? `Prossimo: ${nextDay.name}` : 'Nessun giorno con esercizi'}</p>
+                  <Link to="/palestra/scheda" className={styles.link}>
+                    Apri la scheda <ArrowRightIcon size={16} />
+                  </Link>
+                </div>
+                {nextDay && (
+                  <Button size="sm" icon={<ArrowRightIcon size={16} />} onClick={() => openNew(nextDay.name)}>
+                    Inizia
+                  </Button>
+                )}
+              </div>
+            ) : (
+              <div className={styles.planRow}>
+                <div className="grow">
+                  <span className="label">Scheda</span>
+                  <p className={styles.planNext}>Segui un programma: ogni seduta parte già compilata.</p>
+                </div>
+                <Link to="/palestra/scheda" className={styles.linkBtn}>
+                  Crea
+                </Link>
+              </div>
+            )}
           </Card>
 
           {/* ---- Progressione carico ---- */}
@@ -180,7 +226,7 @@ export function GymPage() {
         </div>
       )}
 
-      <GymForm open={formOpen} onClose={() => setFormOpen(false)} session={editing} sessions={sorted} exercises={exercises ?? []} />
+      <GymForm open={formOpen} onClose={() => setFormOpen(false)} session={editing} sessions={sorted} exercises={exercises ?? []} plan={plan} initialDay={initialDay} />
     </>
   )
 }
