@@ -175,3 +175,10 @@ input[type='number'] {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Focus visibile solo da tastiera: anello arancione morbido. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}

@@ -16,6 +16,7 @@ import { Metric } from '../components/ui/Metric'
 import { Button } from '../components/ui/Button'
 import { Chip } from '../components/ui/Controls'
 import { List, ListRow } from '../components/ui/ListRow'
+import { InstallHint } from '../components/ui/InstallHint'
 import { ArrowRightIcon, BodyIcon, DownloadIcon, GymIcon, RunIcon, SettingsIcon } from '../components/ui/Icons'
 import styles from './Dashboard.module.css'
 
@@ -59,6 +60,9 @@ export function DashboardPage() {
 
   return (
     <>
+      <div className={styles.sunWrap} aria-hidden="true">
+        <span className={styles.sun} />
+      </div>
       <PageHeader
         eyebrow={eyebrow}
         title={`${greeting()}!`}
@@ -70,6 +74,8 @@ export function DashboardPage() {
       />
 
       <div className="stack">
+        <InstallHint />
+
         {/* ---- Promemoria backup ---- */}
         {overdue && (
           <Card variant="glass" compact className={styles.banner}>
