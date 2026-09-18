@@ -4,7 +4,7 @@ import styles from './Splash.module.css'
 /** Dopo quanti secondi in background la riapertura mostra di nuovo l'animazione. */
 const REOPEN_AFTER_MS = 20_000
 /** Durata complessiva (animazioni + dissolvenza); dopo, il componente si smonta comunque. */
-const TOTAL_MS = 1600
+const TOTAL_MS = 2500
 
 /**
  * Schermata di apertura: il sole sorge sullo sfondo sabbia, compare il nome,
