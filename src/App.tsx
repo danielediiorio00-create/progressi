@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/layout/AppShell'
+import { Splash } from './components/layout/Splash'
 import { DashboardPage } from './pages/Dashboard'
 import { SettingsPage } from './pages/Settings'
 import { BodyPage } from './pages/Body'
@@ -12,7 +13,9 @@ import { ReportPage } from './pages/Report'
 
 export default function App() {
   return (
-    <AppShell>
+    <>
+      <Splash />
+      <AppShell>
       <Routes>
         <Route path="/" element={<DashboardPage />} />
         <Route path="/corpo" element={<BodyPage />} />
@@ -25,6 +28,7 @@ export default function App() {
         <Route path="/impostazioni" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </AppShell>
+      </AppShell>
+    </>
   )
 }

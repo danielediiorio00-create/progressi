@@ -1,0 +1,65 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  background: linear-gradient(165deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  pointer-events: none;
+  animation: fadeOut 450ms var(--ease) 1050ms both;
+}
+
+.sun {
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  box-shadow: var(--accent-glow);
+  animation: rise 900ms var(--ease) both;
+}
+
+.name {
+  font-size: 26px;
+  font-weight: var(--fw-light);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  animation: nameIn 600ms var(--ease) 380ms both;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(90px) scale(0.55);
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes nameIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
