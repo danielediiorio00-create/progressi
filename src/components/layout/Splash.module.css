@@ -63,3 +63,26 @@
     opacity: 0;
   }
 }
+
+/* Con "riduci movimento": niente spostamenti, solo dissolvenze (la regola
+   globale azzera le durate, quindi qui vengono reimpostate). */
+@keyframes fadeInOnly {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash {
+    animation: fadeOut 300ms ease 900ms both !important;
+  }
+  .sun {
+    animation: fadeInOnly 400ms ease both !important;
+  }
+  .name {
+    animation: fadeInOnly 400ms ease 150ms both !important;
+  }
+}
