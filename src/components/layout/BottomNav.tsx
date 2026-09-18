@@ -15,7 +15,7 @@ export function BottomNav() {
   return (
     <nav className={styles.nav} aria-label="Sezioni">
       {items.map(({ to, label, Icon, end }) => (
-        <NavLink key={to} to={to} end={end} className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ''}`}>
+        <NavLink key={to} to={to} end={end} viewTransition className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ''}`}>
           <span className={styles.icon}>
             <Icon size={21} />
           </span>

@@ -4,7 +4,12 @@ import { BottomNav } from './BottomNav'
 import { Toaster } from '../ui/Toaster'
 import styles from './AppShell.module.css'
 
-/** Struttura comune a tutte le pagine: contenuto scorrevole + barra in basso. */
+/**
+ * Struttura comune a tutte le pagine: contenuto scorrevole + barra in basso.
+ * Il passaggio tra pagine usa le View Transitions del browser (dissolvenza
+ * gestita dal sistema, fluida su iPhone); dove non sono supportate il cambio
+ * e' immediato.
+ */
 export function AppShell({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
 
@@ -15,13 +20,9 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className={styles.shell}>
-      {/* La key fa ripartire la piccola animazione di ingresso a ogni pagina. */}
-      <main key={pathname} className={`${styles.page} ${styles.enter}`}>
-        {children}
-      </main>
+      <main className={styles.page}>{children}</main>
       <BottomNav />
       <Toaster />
     </div>
   )
 }
-

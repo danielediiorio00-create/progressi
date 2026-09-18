@@ -20,7 +20,7 @@ export function PageHeader({ title, eyebrow, subtitle, actions, backTo }: PageHe
     <header className={styles.header}>
       <div className={styles.text}>
         {backTo && (
-          <Link to={backTo} className={styles.back} aria-label="Indietro">
+          <Link viewTransition to={backTo} className={styles.back} aria-label="Indietro">
             <ChevronLeftIcon size={20} />
           </Link>
         )}
@@ -36,7 +36,7 @@ export function PageHeader({ title, eyebrow, subtitle, actions, backTo }: PageHe
 /** Bottone circolare di intestazione (es. ingranaggio delle impostazioni). */
 export function HeaderButton({ to, label, children }: { to: string; label: string; children: ReactNode }) {
   return (
-    <Link to={to} className={styles.headerBtn} aria-label={label} title={label}>
+    <Link viewTransition to={to} className={styles.headerBtn} aria-label={label} title={label}>
       {children}
     </Link>
   )

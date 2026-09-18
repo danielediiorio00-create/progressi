@@ -8,13 +8,15 @@ interface SheetProps {
   onClose: () => void
   title: string
   children: ReactNode
+  /** Contenuto fisso in fondo al pannello, fuori dall'area che scorre (es. timer). */
+  footer?: ReactNode
 }
 
 /**
  * Pannello che sale dal basso (stile iOS) per i moduli di inserimento.
  * Si chiude toccando lo sfondo, la X o premendo Esc.
  */
-export function Sheet({ open, onClose, title, children }: SheetProps) {
+export function Sheet({ open, onClose, title, children, footer }: SheetProps) {
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
@@ -42,6 +44,7 @@ export function Sheet({ open, onClose, title, children }: SheetProps) {
           </button>
         </div>
         <div className={styles.content}>{children}</div>
+        {footer && <div className={styles.footer}>{footer}</div>}
       </div>
     </div>,
     document.body,

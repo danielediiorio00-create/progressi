@@ -1,4 +1,6 @@
 .nav {
+  /* La barra resta ferma durante la transizione tra pagine. */
+  view-transition-name: bottom-nav;
   position: fixed;
   left: 50%;
   bottom: calc(env(safe-area-inset-bottom) + 12px);

@@ -123,13 +123,13 @@ export function DashboardPage() {
 
         {/* ---- Inserimento rapido ---- */}
         <div className={styles.quick}>
-          <Link to="/corsa?nuova" className={styles.quickBtn}>
+          <Link viewTransition to="/corsa?nuova" className={styles.quickBtn}>
             <RunIcon size={18} /> Corsa
           </Link>
-          <Link to="/palestra?nuova" className={styles.quickBtn}>
+          <Link viewTransition to="/palestra?nuova" className={styles.quickBtn}>
             <GymIcon size={18} /> Palestra
           </Link>
-          <Link to="/corpo?nuova" className={styles.quickBtn}>
+          <Link viewTransition to="/corpo?nuova" className={styles.quickBtn}>
             <BodyIcon size={18} /> Peso
           </Link>
         </div>
@@ -143,7 +143,7 @@ export function DashboardPage() {
             </div>
             {sortedBody.length === 0 ? (
               <p className="muted small">
-                Registra peso e vita in <Link to="/corpo">Corpo</Link>: qui vedrai la variazione della media settimanale.
+                Registra peso e vita in <Link viewTransition to="/corpo">Corpo</Link>: qui vedrai la variazione della media settimanale.
               </p>
             ) : (
               <div className="grid-2">
@@ -198,7 +198,7 @@ export function DashboardPage() {
                 1. Compila altezza e obiettivo nelle impostazioni. 2. Registra il peso di oggi. 3. Dopo ogni allenamento, aggiungilo con i
                 pulsanti qui sopra: bastano 20 secondi.
               </p>
-              <Link to="/impostazioni" className={styles.link}>
+              <Link viewTransition to="/impostazioni" className={styles.link}>
                 Vai alle impostazioni <ArrowRightIcon size={18} />
               </Link>
             </div>

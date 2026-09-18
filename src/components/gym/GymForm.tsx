@@ -5,12 +5,14 @@ import { formatRelativeDay, todayISO } from '../../lib/date'
 import { parseNum } from '../../lib/format'
 import { exerciseMap, formatEntry, lastEntryFor } from '../../lib/gym'
 import { entriesFromPlanDay, formatPlanExercise, suggestNextDay } from '../../lib/plan'
-import { RestTimer } from './RestTimer'
+import { useRestTimer } from '../../hooks/useRestTimer'
+import { fmtRest } from '../../lib/plan'
+import { RestTimerBar } from './RestTimerBar'
 import { toast } from '../../hooks/useToast'
 import { Sheet } from '../ui/Sheet'
 import { Field, TextArea, TextInput } from '../ui/Field'
 import { ActionPair, Button } from '../ui/Button'
-import { CalendarIcon, CloseIcon, NoteIcon, PlusIcon, RepeatIcon, TrashIcon } from '../ui/Icons'
+import { CalendarIcon, ClockIcon, CloseIcon, NoteIcon, PlusIcon, RepeatIcon, TrashIcon } from '../ui/Icons'
 import styles from './GymForm.module.css'
 
 interface GymFormProps {
@@ -48,6 +50,7 @@ export function GymForm({ open, onClose, session, sessions, exercises, plan, ini
   const [entries, setEntries] = useState<EntryDraft[]>([])
   const [notes, setNotes] = useState('')
   const [planDay, setPlanDay] = useState<string | undefined>()
+  const timer = useRestTimer()
   const [newName, setNewName] = useState('')
   const [adding, setAdding] = useState(false)
   const editing = session?.id !== undefined
@@ -58,7 +61,10 @@ export function GymForm({ open, onClose, session, sessions, exercises, plan, ini
   const lastSession = useMemo(() => [...previous].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : b.id! - a.id!))[0], [previous])
 
   useEffect(() => {
-    if (!open) return
+    if (!open) {
+      timer.stop()
+      return
+    }
     setDate(session?.date ?? todayISO())
     setNotes(session?.notes ?? '')
     setNewName('')
@@ -165,7 +171,7 @@ export function GymForm({ open, onClose, session, sessions, exercises, plan, ini
   }
 
   return (
-    <Sheet open={open} onClose={onClose} title={editing ? 'Modifica seduta' : 'Nuova seduta'}>
+    <Sheet open={open} onClose={onClose} title={editing ? 'Modifica seduta' : 'Nuova seduta'} footer={<RestTimerBar timer={timer} />}>
       <form className="stack" onSubmit={save}>
         <Field label="Data" icon={<CalendarIcon size={18} />}>
           <TextInput type="date" value={date} onChange={(e) => setDate(e.target.value)} max={todayISO()} required />
@@ -237,7 +243,11 @@ export function GymForm({ open, onClose, session, sessions, exercises, plan, ini
                 return (
                   <div className={styles.planLine}>
                     <span className={styles.entryHint}>Scheda: {formatPlanExercise(pe, ex, false)}</span>
-                    {pe.restSec ? <RestTimer seconds={pe.restSec} /> : null}
+                    {pe.restSec ? (
+                      <button type="button" className={styles.restBtn} onClick={() => timer.start(pe.restSec!, ex?.name)}>
+                        <ClockIcon size={14} /> Recupero {fmtRest(pe.restSec)}
+                      </button>
+                    ) : null}
                   </div>
                 )
               })()}

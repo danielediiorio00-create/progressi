@@ -105,7 +105,7 @@ export function GymPage() {
                 <Button icon={<PlusIcon size={18} />} onClick={() => openNew()}>
                   Prima seduta
                 </Button>
-                <Link to="/palestra/scheda" className={styles.link}>
+                <Link viewTransition to="/palestra/scheda" className={styles.link}>
                   Oppure crea prima la scheda <ArrowRightIcon size={16} />
                 </Link>
               </div>
@@ -134,7 +134,7 @@ export function GymPage() {
                 <div className="grow">
                   <span className="label">Scheda · {plan.name}</span>
                   <p className={styles.planNext}>{nextDay ? `Prossimo: ${nextDay.name}` : 'Nessun giorno con esercizi'}</p>
-                  <Link to="/palestra/scheda" className={styles.link}>
+                  <Link viewTransition to="/palestra/scheda" className={styles.link}>
                     Apri la scheda <ArrowRightIcon size={16} />
                   </Link>
                 </div>
@@ -150,7 +150,7 @@ export function GymPage() {
                   <span className="label">Scheda</span>
                   <p className={styles.planNext}>Segui un programma: ogni seduta parte già compilata.</p>
                 </div>
-                <Link to="/palestra/scheda" className={styles.linkBtn}>
+                <Link viewTransition to="/palestra/scheda" className={styles.linkBtn}>
                   Crea
                 </Link>
               </div>

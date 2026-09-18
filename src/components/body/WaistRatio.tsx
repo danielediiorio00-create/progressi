@@ -24,7 +24,7 @@ export function WaistRatio({ ratio, waistCm, heightCm }: WaistRatioProps) {
       <div className="stack-sm">
         <span className="label">Vita / altezza</span>
         <p className="muted small">
-          Inserisci l'altezza nel <Link to="/impostazioni">profilo</Link> per calcolare il rapporto.
+          Inserisci l'altezza nel <Link viewTransition to="/impostazioni">profilo</Link> per calcolare il rapporto.
         </p>
       </div>
     )

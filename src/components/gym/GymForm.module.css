@@ -145,3 +145,23 @@
   gap: var(--space-2);
   flex-wrap: wrap;
 }
+
+/* Avvio del recupero dalla riga dell'esercizio. */
+.restBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+  box-shadow: var(--shadow-button);
+}
+
+.restBtn:active {
+  transform: scale(0.96);
+}
